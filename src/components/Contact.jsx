@@ -22,17 +22,30 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      
-      setTimeout(() => setSubmitStatus('idle'), 5000);
-    }, 2000);
-  };
+    setSubmitStatus('idle');
 
+    try {
+      const res = await fetch('https://formspree.io/f/mdkywyjb', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      if (res.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (err) {
+      console.error(err);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+      setTimeout(() => setSubmitStatus('idle'), 5000);
+    }
+  };
+    
   const contactInfo = [
     {
       icon: <Mail />,
@@ -118,25 +131,6 @@ const Contact = () => {
                 </div>
               ))}
             </div>
-
-            {/* <div className="social-section">
-              <h4>Connect with me</h4>
-              <div className="Social-links">
-                {socialLinks.map((social, index) => (
-                  <a
-                    key={index}
-                    href={social.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="social-link"
-                    style={{ '--hover-color': social.color }}
-                  >
-                    {social.icon}
-                   
-                  </a>
-                ))}
-              </div>
-            </div> */}
 
             <div className="availability">
               <div className="status-indicator">
