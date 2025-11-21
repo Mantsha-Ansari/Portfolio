@@ -87,7 +87,7 @@ function Hero() {
                 Get In Touch
               </button>
               <a
-                href='Public\Mantsha (2).pdf'
+                href='Public\Mantsha.pdf'
                 download
                 className='btn-secondary'
                 aria-label='Download CV'
