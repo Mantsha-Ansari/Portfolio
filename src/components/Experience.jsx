@@ -32,7 +32,7 @@ function Experience() {
     const certifications = [
         {
             name: "Certificate in AI Tools",
-            issuer: "Institution Name",
+            issuer: "Be10x",
             date: "November 2023",
             type: "Professional Development"
         },
